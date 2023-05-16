@@ -1,0 +1,15 @@
+export const String = {
+  Login: "Login",
+  Email: "Enter Email",
+  Password: "Password",
+  Submit: "Submit",
+  Email_Validation: "Email Validation",
+  continue: "Continue",
+  Register: "Register",
+  FirstName: " First Name",
+  LastName: "Last Name",
+  Phone: "Phone Number",
+  create: "Create",
+  cpassword: "Confirm Password",
+  Name: "Name",
+};
