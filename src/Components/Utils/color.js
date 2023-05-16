@@ -6,4 +6,7 @@ export const colors = {
   white: "white",
   gray: "gray",
   borderColor: "#ccc",
+  dotcolor: "#FFEE58",
+  inactive: "#90A4AE",
+  wpGreen: "#25D366",
 };

@@ -12,4 +12,7 @@ export const String = {
   create: "Create",
   cpassword: "Confirm Password",
   Name: "Name",
+  ThirdParty: "THIRDPARTY",
+  withdraw: "WITHDRAW",
+  deposite: "DEPOSITE",
 };
