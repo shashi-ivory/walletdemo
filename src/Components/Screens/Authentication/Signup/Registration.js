@@ -78,7 +78,7 @@ const Registration = () => {
           />
 
           <TouchableOpacity style={styles.buttonContainer}>
-            <Text style={styles.buttonText}>Registration</Text>
+            <Text style={styles.buttonText}>Registrafdsgdfgdfgddftion</Text>
           </TouchableOpacity>
         </View>
       </View>
