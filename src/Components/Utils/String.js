@@ -3,6 +3,8 @@ export const String = {
   Email: "Enter Email",
   Password: "Password",
   Submit: "Submit",
+  welcome: "Welcome!!",
+  Registation: "Registation",
   Email_Validation: "Email Validation",
   continue: "Continue",
   Register: "Register",

@@ -1,4 +1,3 @@
-import { SafeAreaView } from "react-native";
 import { colors } from "../../../Utils/color";
 import { String } from "../../../Utils/String";
 
@@ -14,7 +13,7 @@ import {
   Platform,
 } from "react-native";
 
-const LoginScreen = () => {
+const LoginScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <View
@@ -36,7 +35,7 @@ const LoginScreen = () => {
             fontWeight: "bold",
           }}
         >
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate("Home")}>
             <AntDesign name="closecircleo" size={24} color={colors.peach} />
           </TouchableOpacity>
         </View>
@@ -48,7 +47,7 @@ const LoginScreen = () => {
             color: colors.white,
           }}
         >
-          Welcome!!
+          {String.welcome}
         </Text>
         <View
           style={{
@@ -68,7 +67,7 @@ const LoginScreen = () => {
             secureTextEntry
           />
           <TouchableOpacity style={styles.buttonContainer}>
-            <Text style={styles.buttonText}>Login</Text>
+            <Text style={styles.buttonText}>{String.Login}</Text>
           </TouchableOpacity>
         </View>
       </View>

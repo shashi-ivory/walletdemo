@@ -18,8 +18,10 @@ import { FontAwesome } from "@expo/vector-icons";
 
 import FastImage from "react-native-fast-image";
 import { SliderBox } from "react-native-image-slider-box";
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
-const Home = () => {
+const Home = ({ navigation }) => {
   const image = [
     "https://source.unsplash.com/1024x768/?nature",
     "https://source.unsplash.com/1024x768/?water",
@@ -47,6 +49,7 @@ const Home = () => {
             alignItems: "center",
             justifyContent: "center",
           }}
+          onPress={() => navigation.navigate("Registration")}
         >
           <Image
             style={{ height: "60%", width: "60%" }}
@@ -60,6 +63,7 @@ const Home = () => {
             alignItems: "center",
             justifyContent: "center",
           }}
+          onPress={() => navigation.navigate("Login")}
         >
           <Image
             style={{ height: "60%", width: "80%" }}

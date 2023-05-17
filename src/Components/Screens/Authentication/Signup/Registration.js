@@ -14,7 +14,7 @@ import {
   Platform,
 } from "react-native";
 
-const Registration = () => {
+const Registration = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <View
@@ -36,7 +36,7 @@ const Registration = () => {
             fontWeight: "bold",
           }}
         >
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate("Home")}>
             <AntDesign name="closecircleo" size={24} color={colors.peach} />
           </TouchableOpacity>
         </View>
@@ -48,7 +48,7 @@ const Registration = () => {
             color: colors.white,
           }}
         >
-          Registration!!
+          {String.Registation}
         </Text>
         <View
           style={{
@@ -78,7 +78,7 @@ const Registration = () => {
           />
 
           <TouchableOpacity style={styles.buttonContainer}>
-            <Text style={styles.buttonText}>Registration</Text>
+            <Text style={styles.buttonText}>{String.Registation}</Text>
           </TouchableOpacity>
         </View>
       </View>
