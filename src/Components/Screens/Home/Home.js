@@ -63,7 +63,7 @@ const Home = ({ navigation }) => {
             alignItems: "center",
             justifyContent: "center",
           }}
-          onPress={() => navigation.navigate("Login")}
+          onPress={() => navigation.navigate("LoginScreen")}
         >
           <Image
             style={{ height: "60%", width: "80%" }}
@@ -93,6 +93,7 @@ const Home = ({ navigation }) => {
                 alignItems: "center",
                 justifyContent: "center",
               }}
+              onPress={() => navigation.navigate("Withdraw")}
             >
               <Image
                 style={{ height: "90%", width: "90%" }}
@@ -124,6 +125,7 @@ const Home = ({ navigation }) => {
                 alignItems: "center",
                 justifyContent: "center",
               }}
+              onPress={() => navigation.navigate("Deposit")}
             >
               <Image
                 style={{ height: "90%", width: "80%" }}
@@ -155,6 +157,7 @@ const Home = ({ navigation }) => {
                 alignItems: "center",
                 justifyContent: "center",
               }}
+              onPress={() => navigation.navigate("Login")}
             >
               <Image
                 style={{ height: "90%", width: "85%" }}
