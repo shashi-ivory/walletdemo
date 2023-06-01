@@ -10,4 +10,6 @@ export const colors = {
   inactive: "#90A4AE",
   wpGreen: "#25D366",
   red: "red",
+  offWhite: "#ccc",
+  offPink: "#F8C8DC",
 };

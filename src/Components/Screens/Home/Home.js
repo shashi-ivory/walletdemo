@@ -1,5 +1,9 @@
 import { Image, SafeAreaView } from "react-native";
-
+import {
+  horizontalScale,
+  verticalScale,
+  moderateScale,
+} from "../../../Themes/Metrics";
 import React, { useState } from "react";
 import { AntDesign } from "@expo/vector-icons";
 import {
@@ -20,6 +24,7 @@ import FastImage from "react-native-fast-image";
 import { SliderBox } from "react-native-image-slider-box";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import ThirdParty from "../ThirdParty/ThirdParty";
 
 const Home = ({ navigation }) => {
   const image = [
@@ -73,10 +78,14 @@ const Home = ({ navigation }) => {
       </View>
       {/* newlogo */}
       <View style={styles.newLogo}>
-        <Image
-          style={{ height: 80, width: 140, left: 20 }}
-          source={require("../../../../assets/splash.png")}
-        />
+        <TouchableOpacity
+          onPress={() => navigation.navigate("LoginWithGoogle")}
+        >
+          <Image
+            style={{ height: 80, width: 140, left: 20 }}
+            source={require("../../../../assets/splash.png")}
+          />
+        </TouchableOpacity>
       </View>
       <View style={styles.secondContainer}>
         <View
@@ -157,7 +166,7 @@ const Home = ({ navigation }) => {
                 alignItems: "center",
                 justifyContent: "center",
               }}
-              onPress={() => navigation.navigate("Login")}
+              onPress={() => navigation.navigate("ThirdParty")}
             >
               <Image
                 style={{ height: "90%", width: "85%" }}
@@ -261,8 +270,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
-    width: windowWidth,
-    height: windowHeight,
+    height: verticalScale(70),
+    width: horizontalScale(378),
+    marginTop: verticalScale(0),
     backgroundColor: colors.green,
   },
   input: {
