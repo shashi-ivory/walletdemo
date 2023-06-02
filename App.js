@@ -7,6 +7,7 @@ import AuthNavigation from "./src/Components/Navigation/AuthNavigation";
 import { NavigationContainer } from "@react-navigation/native";
 import { Provider } from "react-redux";
 import store from "./src/Redux/store";
+import "react-native-gesture-handler";
 
 export default function App() {
   return (
@@ -14,7 +15,6 @@ export default function App() {
       <View style={{ flex: 1 }}>
         <NavigationContainer>
           <MainNavigation />
-          {/* <AuthNavigation /> */}
         </NavigationContainer>
       </View>
     </Provider>

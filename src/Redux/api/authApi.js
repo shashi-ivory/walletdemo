@@ -35,3 +35,16 @@ export function* UserLoginApi(loggedData) {
 
   return login;
 }
+export function* userOtpApi(otpData) {
+  const otp = yield axios
+    .post(`https://anjanibooks.live/dashboard/api/otpsend`, otpData)
+    .then(function (response) {
+      console.log("otp response =====>", response);
+      return response;
+    })
+    .catch(function (error) {
+      console.log("error", error);
+      return error.response;
+    });
+  return otp;
+}

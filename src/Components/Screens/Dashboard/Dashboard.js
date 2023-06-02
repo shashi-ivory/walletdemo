@@ -15,7 +15,7 @@ import { FontAwesome } from "@expo/vector-icons";
 import { SliderBox } from "react-native-image-slider-box";
 import { LinearGradient } from "expo-linear-gradient";
 import { AntDesign } from "@expo/vector-icons";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 const image = [
   "https://source.unsplash.com/1024x768/?nature",
   "https://source.unsplash.com/1024x768/?water",
@@ -23,7 +23,16 @@ const image = [
   "https://source.unsplash.com/1024x768/?tree", // Network image
 ];
 const Dashboard = ({ navigation }) => {
+  const [userToken, setUserToken] = useState("");
   const dispatch = useDispatch();
+  const token = useSelector(
+    (state) => state?.user?.loginData?.data?.data[0]?.token
+  );
+  console.warn(token);
+  const logout = () => {
+    setUserToken(token);
+    console.warn(userToken);
+  };
   return (
     //Dashboard VIEW
     <LinearGradient
@@ -58,7 +67,12 @@ const Dashboard = ({ navigation }) => {
         }}
       >
         <View>
-          <AntDesign name="logout" size={32} color={colors.peach} />
+          <AntDesign
+            name="menu-unfold"
+            size={32}
+            color={colors.peach}
+            onPress={() => logout()}
+          />
         </View>
         <Text
           style={{

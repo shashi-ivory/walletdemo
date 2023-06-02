@@ -28,3 +28,22 @@ export const RegistationStatus = (RegisterStatus) => {
     RegisterStatus,
   };
 };
+
+export const otpRequest = (email) => {
+  console.log("otp request ========>", email);
+  return {
+    type: actionType.OTP_REQUEST,
+    email,
+  };
+};
+export const otpSucess = () => {
+  return {
+    type: actionType.OTP_SUCESS,
+  };
+};
+export const otpFail = (error) => {
+  return {
+    type: actionType.OTP_FAIL,
+    error,
+  };
+};

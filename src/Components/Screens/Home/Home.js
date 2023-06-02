@@ -1,4 +1,4 @@
-import { Image, SafeAreaView } from "react-native";
+import { Alert, Image, SafeAreaView } from "react-native";
 import {
   horizontalScale,
   verticalScale,
@@ -33,6 +33,9 @@ const Home = ({ navigation }) => {
     "https://source.unsplash.com/1024x768/?girl",
     "https://source.unsplash.com/1024x768/?tree", // Network image
   ];
+  const showAlert = () => {
+    Alert.alert("Login To Access the details");
+  };
   return (
     //MAIN VIEW
     <View style={styles.container}>
@@ -102,7 +105,7 @@ const Home = ({ navigation }) => {
                 alignItems: "center",
                 justifyContent: "center",
               }}
-              onPress={() => navigation.navigate("Withdraw")}
+              onPress={showAlert}
             >
               <Image
                 style={{ height: "90%", width: "90%" }}
@@ -134,7 +137,7 @@ const Home = ({ navigation }) => {
                 alignItems: "center",
                 justifyContent: "center",
               }}
-              onPress={() => navigation.navigate("Deposit")}
+              onPress={showAlert}
             >
               <Image
                 style={{ height: "90%", width: "80%" }}
@@ -166,7 +169,7 @@ const Home = ({ navigation }) => {
                 alignItems: "center",
                 justifyContent: "center",
               }}
-              onPress={() => navigation.navigate("ThirdParty")}
+              onPress={showAlert}
             >
               <Image
                 style={{ height: "90%", width: "85%" }}
@@ -254,9 +257,7 @@ const Home = ({ navigation }) => {
           name="whatsapp"
           size={34}
           color={colors.white}
-          onPress={() => {
-            Linking.openURL("http://api.whatsapp.com/send?phone=962");
-          }}
+          onPress={showAlert}
         />
       </View>
     </View>

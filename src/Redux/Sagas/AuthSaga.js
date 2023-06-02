@@ -17,17 +17,19 @@ function* userLogin(payload) {
       "UserId",
       JSON.stringify(loginData?.data?.data[0]?.user_id)
     );
-
+    console.warn(loggedData, "lofgggggggggdattatata");
     yield put({
       type: actionType.USER_LOGIN_SUCCESS,
       loginData,
     });
+    Alert.alert(loginData.data.message, "Login Sucessfull");
   } else {
     Alert.alert(loginData.data.message);
     yield put({
       type: actionType.USER_LOGIN_FAIL,
       loginErrData: loginData,
     });
+    Alert.alert(loginData.data.message, "Login Failed");
   }
 }
 

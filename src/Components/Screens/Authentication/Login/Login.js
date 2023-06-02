@@ -14,7 +14,6 @@ import {
 } from "react-native";
 import PhoneInput from "react-native-phone-number-input";
 import { LinearGradient } from "expo-linear-gradient";
-import OTPScreen from "../Otp/OTPScreen";
 
 import { useDispatch, useSelector } from "react-redux";
 import { loginClick, LoginStatus } from "../../../../Redux/Action/AuthaAction";
@@ -56,11 +55,6 @@ const LoginScreen = ({ navigation }) => {
   const handlePasswordChange = (text) => {
     setPassword(text);
     setPasswordError("");
-  };
-  const handleNavigation = () => {
-    if (!phone == "" || !Password == "") {
-      navigation.navigate("OTPScreen");
-    }
   };
 
   // const onSubmit = () => {

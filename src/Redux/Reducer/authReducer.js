@@ -45,7 +45,7 @@ const authReducer = (state = initialState, action) => {
       return {
         ...state,
 
-        data: action?.regData,
+        regData: action?.regData,
         isLoading: false,
         error: null,
       };
@@ -55,6 +55,10 @@ const authReducer = (state = initialState, action) => {
 
         error: action?.regErrData,
         isLoading: false,
+      };
+    case actionType.OTP_REQUEST:
+      return {
+        ...state,
       };
 
     default:
