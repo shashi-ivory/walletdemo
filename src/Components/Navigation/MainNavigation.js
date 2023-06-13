@@ -19,7 +19,7 @@ function MainNavigation() {
   const token = useSelector(
     (state) => state?.user?.loginData?.data?.data[0]?.token
   );
-  console.log("Token+++++++", token);
+  // console.log("Token+++++++", token);
   const Stack = createStackNavigator();
   return (
     <>

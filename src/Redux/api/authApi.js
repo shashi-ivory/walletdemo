@@ -1,31 +1,13 @@
 import axios from "axios";
 
-export const base_url = "https://paindustry.in/booky/api";
+export const base_url = "https://anjanibooks.live/dev/api";
 
-export function* UserRegistrationApi(registratedData) {
-  const registration = yield axios
-    .post(`https://anjanibooks.live/dev/api/register`, registratedData)
-    .then(function (response) {
-      alert(JSON.stringify(response));
-      console.log("res", response);
-      return response;
-    })
-    .catch(function (error) {
-      console.log("error", error);
-      alert(error);
-      return error.response;
-    });
-
-  return registration;
-}
 export function* UserLoginApi(loggedData) {
   const login = yield axios
-    .post(`https://anjanibooks.live/dev/api/login`, loggedData)
+    .post(`${base_url}/login`, loggedData)
     .then(function (response) {
-      console.log("response Login =========>", response);
-
+      console.log("response", response);
       return response;
-      Alert.alert("respose", response.JSON.stringify());
     })
     .catch(function (error) {
       console.log("error", error);
@@ -35,16 +17,17 @@ export function* UserLoginApi(loggedData) {
 
   return login;
 }
-export function* userOtpApi(otpData) {
-  const otp = yield axios
-    .post(`https://anjanibooks.live/dashboard/api/otpsend`, otpData)
+export function* UserRegiterApi(registratedData) {
+  console.log("registratedData----------------->", registratedData);
+  const registers = yield axios
+    .post(`${base_url}/register`, registratedData)
     .then(function (response) {
-      console.log("otp response =====>", response);
+      console.log("response======>", JSON.stringify(response));
       return response;
     })
     .catch(function (error) {
       console.log("error", error);
       return error.response;
     });
-  return otp;
+  return registers;
 }

@@ -1,9 +1,3 @@
-import { SafeAreaView, ScrollViewBase } from "react-native";
-import { colors } from "../../../Utils/color";
-import { String } from "../../../Utils/String";
-
-import React, { useEffect, useState } from "react";
-import { AntDesign } from "@expo/vector-icons";
 import {
   View,
   TextInput,
@@ -12,9 +6,17 @@ import {
   StyleSheet,
   Dimensions,
   Platform,
+  KeyboardAvoidingView,
+  Alert,
 } from "react-native";
+import { colors } from "../../../Utils/color";
+import { String } from "../../../Utils/String";
+
+import React, { useEffect, useState } from "react";
+import { AntDesign } from "@expo/vector-icons";
+
 import {
-  RegistationClick,
+  RegitrationClick,
   RegistationStatus,
 } from "../../../../Redux/Action/AuthaAction";
 import { useSelector, useDispatch } from "react-redux";
@@ -27,9 +29,9 @@ const Registration = ({ navigation }) => {
   const [emailError, setEamilError] = useState("");
   const [Phone, setPhone] = useState();
   const [phoneError, setPhoneError] = useState();
-  const [Country, setCountry] = useState("");
+  const [Country, setCountry] = useState(101);
   const [countryError, setCountryError] = useState("");
-  const [CountryCode, setCountryCode] = useState("");
+  const [CountryCode, setCountryCode] = useState(91);
   const [countryCodeError, setcountryCodeError] = useState("");
   const [Password, setPassword] = useState("");
   const [passwordError, setPasswordError] = useState("");
@@ -58,15 +60,15 @@ const Registration = ({ navigation }) => {
     setcPassword(text);
     setcPasswordError("");
   };
-  const handleCountryChange = (text) => {
-    setCountry(text);
-    setCountryError("");
-  };
-  const handleCountryCodeChange = (text) => {
-    setCountryCode(text);
-    setcountryCodeError("");
-  };
-  const onSubmit = () => {
+
+  const data = useSelector((state) => console.log("Register Data", state));
+  console.log("data", data);
+
+  // const otpVarificationStatus = useSelector((state) =>
+  //   console.log("gffDYSDGSGDGSDGG", state?.user?.data?.data?.ok)
+  // );
+  // console.log("otpVarificationStatus", otpVarificationStatus);
+  const onSubmit = (values) => {
     const nameRegex = /^[A-Za-z\s]+$/;
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const phoneRegex = /^\d+$/;
@@ -114,32 +116,28 @@ const Registration = ({ navigation }) => {
         country: Country,
       };
       if (payload) {
-        dispatch(RegistationClick(payload));
+        dispatch(RegitrationClick(payload));
       }
     }
   };
-  const registerData = useSelector(
-    (state) => state.user?.registratedData?.data?.data[0]?.registerData
-  );
 
-  useEffect(() => {
-    if (registerData === "" || undefined || null) {
-      dispatch(RegistationStatus(false));
-      console.log("RegistationStatus===>ojk");
-    } else {
-      dispatch(RegistationStatus(true));
-      console.log("RegistationStatus===>true");
-    }
-  }, [registerData]);
-
-  console.log("registerData=======>", registerData);
+  const cancelRegistration = () => {
+    setNameError("");
+    setEamilError("");
+    setPhoneError("");
+    setPasswordError("");
+    navigation.navigate("Register_Otp");
+  };
 
   return (
-    <View style={styles.container}>
+    <KeyboardAvoidingView
+      style={styles.container}
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+    >
       <LinearGradient
         style={{
           flex: 1,
-          width: windowWidth,
+          width: "100%",
           backgroundColor: colors.peach,
 
           borderColor: colors.pink,
@@ -165,9 +163,9 @@ const Registration = ({ navigation }) => {
         >
           <AntDesign
             name="leftcircle"
-            size={30}
+            size={windowWidth * 0.09}
             color={colors.peach}
-            style={{ right: 70, alignSelf: "center" }}
+            style={{ right: windowWidth * 0.2, alignSelf: "center" }}
             onPress={() => navigation.navigate("Home")}
           />
 
@@ -185,35 +183,37 @@ const Registration = ({ navigation }) => {
             {String.Registation}
           </Text>
         </View>
+        <ScrollView contentContainerStyle={styles.scrollContainer}>
+          <TextInput
+            style={styles.input}
+            placeholder={String.Name}
+            value={Name}
+            onChangeText={handelNamechange}
+          />
+          {nameError ? (
+            <Text style={styles.errorStyle}>{nameError}</Text>
+          ) : null}
 
-        <TextInput
-          style={styles.input}
-          placeholder={String.Name}
-          value={Name}
-          onChangeText={handelNamechange}
-        />
-        {nameError ? <Text style={styles.errorStyle}>{nameError}</Text> : null}
+          <TextInput
+            style={styles.input}
+            placeholder={String.Email}
+            value={Email}
+            onChangeText={handelEmailChange}
+          />
+          {emailError ? (
+            <Text style={styles.errorStyle}>{emailError}</Text>
+          ) : null}
+          <TextInput
+            style={styles.input}
+            placeholder={String.Phone}
+            value={Phone}
+            onChangeText={handlePhoneChange}
+          />
 
-        <TextInput
-          style={styles.input}
-          placeholder={String.Email}
-          value={Email}
-          onChangeText={handelEmailChange}
-        />
-        {emailError ? (
-          <Text style={styles.errorStyle}>{emailError}</Text>
-        ) : null}
-        <TextInput
-          style={styles.input}
-          placeholder={String.Phone}
-          value={Phone}
-          onChangeText={handlePhoneChange}
-        />
-
-        {phoneError ? (
-          <Text style={styles.errorStyle}>{phoneError}</Text>
-        ) : null}
-        {/* <TextInput
+          {phoneError ? (
+            <Text style={styles.errorStyle}>{phoneError}</Text>
+          ) : null}
+          {/* <TextInput
             style={styles.input}
             placeholder={String.Country}
             value={Country}
@@ -231,35 +231,48 @@ const Registration = ({ navigation }) => {
           {countryCodeError ? (
             <Text style={styles.errorStyle}>{countryCodeError}</Text>
           ) : null} */}
-        <TextInput
-          style={styles.input}
-          placeholder={String.Password}
-          secureTextEntry
-          value={Password}
-          onChangeText={handlePasswordChange}
-        />
-        {passwordError ? (
-          <Text style={styles.errorStyle}>{passwordError}</Text>
-        ) : null}
+          <TextInput
+            style={styles.input}
+            placeholder={String.Password}
+            secureTextEntry
+            value={Password}
+            onChangeText={handlePasswordChange}
+          />
+          {passwordError ? (
+            <Text style={styles.errorStyle}>{passwordError}</Text>
+          ) : null}
 
-        <TextInput
-          style={styles.input}
-          placeholder={String.cpassword}
-          secureTextEntry
-          value={cPassword}
-          onChangeText={handlecPasswordChange}
-        />
-        {cpasswordError ? (
-          <Text style={styles.errorStyle}>{cpasswordError}</Text>
-        ) : null}
-        <TouchableOpacity
-          style={styles.buttonContainer}
-          onPress={() => onSubmit()}
-        >
-          <Text style={styles.buttonText}>{String.Registation}</Text>
-        </TouchableOpacity>
+          <TextInput
+            style={styles.input}
+            placeholder={String.cpassword}
+            secureTextEntry
+            value={cPassword}
+            onChangeText={handlecPasswordChange}
+          />
+          {cpasswordError ? (
+            <Text style={styles.errorStyle}>{cpasswordError}</Text>
+          ) : null}
+          <TouchableOpacity
+            style={styles.buttonContainer}
+            onPress={() => onSubmit()}
+          >
+            <Text style={styles.buttonText}>{String.Registation}</Text>
+          </TouchableOpacity>
+          {/* <TouchableOpacity
+            style={styles.buttonContainer}
+            onPress={() => cancelRegistration()}
+          >
+            <Text style={styles.buttonText}>{String.cancel}</Text>
+          </TouchableOpacity> */}
+          <TouchableOpacity
+            style={styles.buttonContainer}
+            onPress={() => cancelRegistration()}
+          >
+            <Text style={styles.buttonText}>{String.Verify_OTP}</Text>
+          </TouchableOpacity>
+        </ScrollView>
       </LinearGradient>
-    </View>
+    </KeyboardAvoidingView>
   );
 };
 
@@ -272,21 +285,21 @@ const styles = StyleSheet.create({
     backgroundColor: colors.peach,
   },
   input: {
-    marginTop: 10,
-    height: 55,
+    marginTop: windowHeight * 0.02,
+    height: windowHeight * 0.07,
     borderWidth: 1,
     width: windowWidth * 0.8,
     borderColor: colors.offWhite,
     borderRadius: 5,
-    paddingHorizontal: 10,
+    paddingHorizontal: windowWidth * 0.02,
     backgroundColor: colors.offWhite,
-    marginBottom: 20,
+    marginBottom: windowHeight * 0.03,
     alignSelf: "center",
   },
   buttonContainer: {
-    marginTop: 5,
-    width: "80%",
-    height: 55,
+    marginTop: windowHeight * 0.01,
+    width: windowWidth * 0.8,
+    height: windowHeight * 0.07,
     backgroundColor: colors.green,
     justifyContent: "center",
     alignItems: "center",
@@ -296,15 +309,18 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: colors.white,
-    fontSize: 16,
+    fontSize: windowHeight * 0.02,
     fontWeight: "bold",
   },
   errorStyle: {
     color: colors.white,
-    left: 45,
+    left: windowWidth * 0.1,
     justifyContent: "center",
     alignItems: "center",
-    marginBottom: 5,
+    marginBottom: windowHeight * 0.007,
+  },
+  scrollContainer: {
+    flexGrow: 1,
   },
 });
 

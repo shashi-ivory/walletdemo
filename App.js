@@ -8,6 +8,12 @@ import { NavigationContainer } from "@react-navigation/native";
 import { Provider } from "react-redux";
 import store from "./src/Redux/store";
 import "react-native-gesture-handler";
+import { LogBox } from "react-native";
+
+LogBox.ignoreLogs([
+  "ViewPropTypes will be removed",
+  "ColorPropType will be removed",
+]);
 
 export default function App() {
   return (

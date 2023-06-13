@@ -28,10 +28,10 @@ const Dashboard = ({ navigation }) => {
   const token = useSelector(
     (state) => state?.user?.loginData?.data?.data[0]?.token
   );
-  console.warn(token);
+  // console.warn(token);
   const logout = () => {
     setUserToken(token);
-    console.warn(userToken);
+    // console.warn(userToken);
   };
   return (
     //Dashboard VIEW
@@ -214,9 +214,9 @@ const Dashboard = ({ navigation }) => {
           // ImageComponent={FastImage}
           images={image}
           sliderBoxHeight={200}
-          onCurrentImagePressed={(index) =>
-            console.warn(`image ${index} pressed`)
-          }
+          // onCurrentImagePressed={(index) =>
+          //   console.warn(`image ${index} pressed`)
+          // }
           dotColor={colors.pink}
           inactiveDotColor={colors.inactive}
           paginationBoxVerticalPadding={20}

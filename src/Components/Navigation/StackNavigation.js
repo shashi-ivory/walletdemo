@@ -11,6 +11,7 @@ import ThirdParty from "../Screens/ThirdParty/ThirdParty";
 import OTPScreen from "../Screens/Authentication/Otp/OTPScreen";
 import PaymentMethod from "../Screens/Deposit/PaymentMethod/PaymentMethod";
 import Dashboard from "../Screens/Dashboard/Dashboard";
+import Register_Otp from "../Screens/Authentication/Signup/Register_Otp";
 const Stack = createStackNavigator();
 function StackNavigation() {
   return (

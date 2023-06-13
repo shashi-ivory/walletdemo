@@ -1,49 +1,35 @@
 import * as actionType from "./Action";
+
 export const loginClick = (payload) => {
-  console.log("payload============>", payload);
+  console.log("payload authaction ", payload);
   return {
     type: actionType.USER_LOGIN,
     loggedData: payload,
   };
 };
+
 export const LoginStatus = (loginStatus) => {
-  console.log("loginStatus", loginStatus);
   return {
     type: actionType.USER_LOGIN_STATUS,
     loginStatus,
   };
 };
-
-export const RegistationClick = (payload) => {
-  console.log("Registration payload=========>", payload);
+export const RegitrationClick = (payload) => {
+  console.log("payload regitrationClick =====>", payload);
   return {
-    type: actionType.USER_REGISTATION,
-    registationData: payload,
+    type: actionType.REGISTER_REQUEST,
+    registratedData: payload,
   };
 };
-export const RegistationStatus = (RegisterStatus) => {
-  console.log("Registration status=========>", RegisterStatus);
+export const RegitrationSuccess = (registrationSucess) => {
   return {
-    type: actionType.USER_REGISTATION_STATUS,
-    RegisterStatus,
+    type: actionType.REGISTER_SUCCESS,
+    registrationSucess,
   };
 };
-
-export const otpRequest = (email) => {
-  console.log("otp request ========>", email);
+export const RegistrationStatus = (registerStatus) => {
   return {
-    type: actionType.OTP_REQUEST,
-    email,
-  };
-};
-export const otpSucess = () => {
-  return {
-    type: actionType.OTP_SUCESS,
-  };
-};
-export const otpFail = (error) => {
-  return {
-    type: actionType.OTP_FAIL,
-    error,
+    type: actionType.REGISTER_STATUS,
+    registerStatus,
   };
 };

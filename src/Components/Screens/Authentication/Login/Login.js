@@ -11,224 +11,210 @@ import {
   StyleSheet,
   Dimensions,
   Platform,
+  ActivityIndicator,
 } from "react-native";
 import PhoneInput from "react-native-phone-number-input";
 import { LinearGradient } from "expo-linear-gradient";
-
 import { useDispatch, useSelector } from "react-redux";
 import { loginClick, LoginStatus } from "../../../../Redux/Action/AuthaAction";
 
 const LoginScreen = ({ navigation }) => {
   const [phone, setPhone] = useState();
   const [phoneError, setPhoneError] = useState("");
-  const [Password, setPassword] = useState();
+  const [password, setPassword] = useState();
   const [passwordError, setPasswordError] = useState("");
   const [isLoding, setIsLoading] = useState(false);
-  const [userToken, setUserToken] = useState(null);
   const dispatch = useDispatch();
   const token = useSelector(
     (state) => state?.user?.loginData?.data?.data[0]?.token
   );
-  const validatePhone = () => {
-    const phoneRegex = /^[0-9]/;
-    if (!phoneRegex.test(phone)) {
-      setPhoneError(" Phone Number Required!!");
-    } else {
-      setPhoneError("");
-    }
-  };
-  const validatedPassword = () => {
-    // const passwordRegex =
-    //   /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
-    // if (!passwordRegex.test(Password)) {
-    if (Password == "" || Password.length < 6) {
-      setPasswordError("Password is Required!!");
-    } else {
-      setPasswordError("");
-    }
-  };
-  const handlePhoneNumberChange = (text) => {
-    setPhone(text);
 
-    setPhoneError("");
-  };
-  const handlePasswordChange = (text) => {
-    setPassword(text);
-    setPasswordError("");
-  };
-
-  // const onSubmit = () => {
-  //   validatePhone();
-  //   validatedPassword();
-  //   handleNavigation();
-  // };
-
+  console.log("tokennnnn==========>", token);
   const onSubmit = () => {
-    if (Password == "") {
+    if (password == "") {
       setPasswordError("plaese Enter A password !.");
     }
     if (phone == "") {
       setPhoneError("Phone no is required !");
     }
-
+    setIsLoading(true);
     dispatch(
       loginClick({
         phone: phone,
-        password: Password,
+        password: password,
       })
     );
   };
   useEffect(() => {
     if (token == undefined || null || "") {
-      dispatch(LoginStatus(false));
-    } else {
       dispatch(LoginStatus(true));
+    } else {
+      dispatch(LoginStatus(false));
     }
   }, [token]);
-  console.log("Token======>", token);
-  const userData = useSelector((state) => console.log("date", state));
 
-  console.log("userData=====>", userData);
+  const handlePhoneNumberChange = (text) => {
+    setPhoneError("");
+    setPhone(text);
+  };
+  const handlePasswordChange = (text) => {
+    setPasswordError("");
+    setPassword(text);
+  };
+  const handleRegister = () => {
+    navigation.navigate("Registration");
+  };
+  const forgetPassword = () => {
+    navigation.navigate("ForgotPassword");
+  };
+
   return (
-    <View style={{ flex: 1 }}>
-      <LinearGradient
-        colors={[
-          colors.green,
-          colors.peach,
-          colors.pink,
-          colors.green,
-          colors.peach,
-        ]}
+    <LinearGradient
+      style={{
+        flex: 1,
+        width: windowWidth,
+        backgroundColor: colors.peach,
+        // height: "80%",
+
+        // justifyContent: "center",
+        alignItems: "center",
+
+        borderColor: colors.pink,
+      }}
+      colors={[
+        colors.green,
+        colors.peach,
+        colors.pink,
+        colors.green,
+        colors.peach,
+      ]}
+    >
+      <View
+        style={{
+          backgroundColor: colors.green,
+          height: windowHeight * 0.15,
+          width: windowWidth * 1,
+          borderBottomLeftRadius: 80,
+          justifyContent: "center",
+          alignItems: "center",
+        }}
       >
-        <LinearGradient
+        <Text
           style={{
-            width: windowWidth,
-            backgroundColor: colors.peach,
-            // height: "80%",
-            height: windowHeight,
-            justifyContent: "center",
-            alignItems: "center",
-            borderBottomEndRadius: 100,
-            borderTopLeftRadius: 100,
-            borderColor: colors.pink,
+            fontWeight: "600",
+            fontSize: 25,
+            fontVariant: "small-caps",
+            color: colors.peach,
           }}
-          colors={[
-            colors.green,
-            colors.peach,
-            colors.pink,
-            colors.green,
-            colors.peach,
-          ]}
         >
+          {String.welcome}
+        </Text>
+      </View>
+
+      <View
+        style={{
+          justifyContent: "center",
+          alignItems: "center",
+          width: windowWidth * 1,
+          marginTop: windowHeight * 0.15,
+        }}
+      >
+        <PhoneInput
+          country="IN"
+          autoFormat={true}
+          value={phone}
+          onChangeText={handlePhoneNumberChange}
+          containerStyle={{
+            marginTop: 10,
+
+            borderWidth: 1,
+            width: "80%",
+            borderColor: colors.offWhite,
+            borderRadius: 5,
+
+            marginBottom: 20,
+            backgroundColor: colors.offWhite,
+            padding: 0,
+          }}
+          textContainerStyle={{
+            width: "80%",
+            backgroundColor: colors.offWhite,
+          }}
+        />
+        {phoneError ? (
           <View
             style={{
-              top: 30,
-              position: "absolute",
-              fontWeight: "bold",
-              left: windowWidth * 0.85,
+              color: colors.white,
+              borderRadius: 10,
+              width: "80%",
+              height: 40,
+              justifyContent: "center",
+              alignItems: "center",
+              top: -8,
             }}
           >
-            <TouchableOpacity onPress={() => navigation.navigate("Home")}>
-              <AntDesign name="closecircleo" size={34} color={colors.peach} />
-            </TouchableOpacity>
+            <Text
+              style={{
+                color: colors.red,
+              }}
+            >
+              {phoneError}
+            </Text>
           </View>
-          <Text
+        ) : null}
+        <TextInput
+          style={styles.input}
+          secureTextEntry
+          placeholder="Password"
+          value={password}
+          onChangeText={handlePasswordChange}
+        />
+        {passwordError ? (
+          <View
             style={{
-              fontWeight: "600",
-              fontSize: 25,
-              fontVariant: "small-caps",
-              color: colors.offWhite,
+              color: colors.white,
+              // backgroundColor: colors.offPink,
+              borderRadius: 10,
+              // borderColor: colors.red,
+              // borderWidth: 1,
+              width: "80%",
+              height: 40,
+              justifyContent: "center",
+              alignItems: "center",
+              top: -8,
             }}
           >
-            {String.welcome}
-          </Text>
-
-          <PhoneInput
-            country="IN"
-            autoFormat={true}
-            value={phone}
-            onChangeText={handlePhoneNumberChange}
-            containerStyle={{
-              marginTop: 10,
-
-              borderWidth: 1,
-              width: "80%",
-              borderColor: colors.offWhite,
-              borderRadius: 5,
-
-              marginBottom: 20,
-              backgroundColor: colors.offWhite,
-              padding: 0,
-            }}
-            textContainerStyle={{
-              width: "80%",
-              backgroundColor: colors.offWhite,
-            }}
-          />
-          {phoneError ? (
-            <View
+            <Text
               style={{
-                color: colors.white,
-                // backgroundColor: colors.offPink,
-                borderRadius: 10,
-                // borderColor: colors.red,
-                // borderWidth: 1,
-                width: "80%",
-                height: 40,
-                justifyContent: "center",
-                alignItems: "center",
-                top: -8,
+                color: colors.red,
               }}
             >
-              <Text
-                style={{
-                  color: colors.red,
-                }}
-              >
-                {phoneError}
-              </Text>
-            </View>
-          ) : null}
-          <TextInput
-            style={styles.input}
-            secureTextEntry
-            placeholder="Password"
-            value={Password}
-            onChangeText={handlePasswordChange}
-          />
-          {passwordError ? (
-            <View
-              style={{
-                color: colors.white,
-                // backgroundColor: colors.offPink,
-                borderRadius: 10,
-                // borderColor: colors.red,
-                // borderWidth: 1,
-                width: "80%",
-                height: 40,
-                justifyContent: "center",
-                alignItems: "center",
-                top: -8,
-              }}
-            >
-              <Text
-                style={{
-                  color: colors.red,
-                }}
-              >
-                {passwordError}
-              </Text>
-            </View>
-          ) : null}
-          <TouchableOpacity
-            style={styles.buttonContainer}
-            onPress={() => onSubmit()}
-          >
+              {passwordError}
+            </Text>
+          </View>
+        ) : null}
+        <TouchableOpacity
+          style={styles.buttonContainer}
+          onPress={() => onSubmit()}
+        >
+          {isLoding ? (
+            <ActivityIndicator size="large" color={colors.white} />
+          ) : (
             <Text style={styles.buttonText}>{String.Login}</Text>
-          </TouchableOpacity>
-        </LinearGradient>
-      </LinearGradient>
-    </View>
+          )}
+        </TouchableOpacity>
+        <TouchableOpacity>
+          <Text style={styles.registerLink} onPress={() => handleRegister()}>
+            {String.createAccount}
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity>
+          <Text style={styles.forgotPassword} onPress={() => forgetPassword()}>
+            {String.forgetPassword}?
+          </Text>
+        </TouchableOpacity>
+      </View>
+    </LinearGradient>
   );
 };
 
@@ -255,6 +241,18 @@ const styles = StyleSheet.create({
     backgroundColor: colors.offWhite,
     marginBottom: 20,
   },
+  registerLink: {
+    color: colors.blue,
+    // textDecorationLine: "underline",
+    marginTop: 10,
+    fontSize: 20,
+  },
+  forgotPassword: {
+    color: colors.blue,
+    textDecorationLine: "underline",
+    marginTop: windowHeight * 0.1,
+    fontSize: 20,
+  },
   buttonContainer: {
     marginTop: 5,
     width: "80%",
@@ -262,7 +260,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.green,
     justifyContent: "center",
     alignItems: "center",
-    borderRadius: 5,
+    borderRadius: 50,
   },
   buttonText: {
     color: colors.white,

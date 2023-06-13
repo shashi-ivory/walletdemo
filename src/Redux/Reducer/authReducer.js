@@ -1,19 +1,13 @@
 import * as actionType from "../Action/Action";
+
 const initialState = {
   data: null,
   error: null,
-  isLoading: false,
-  userDetail: null,
-  otpVerification: null,
   loginData: null,
-  isLogin: false,
-  registerData: null,
-  isRegister: false,
-  logout: null,
+  isLoading: false,
+  isLogin: true,
 };
-
-const authReducer = (state = initialState, action) => {
-  console.log("action", action);
+const AuthReducer = (state = initialState, action) => {
   switch (action.type) {
     case actionType.USER_LOGIN:
       return {
@@ -22,7 +16,6 @@ const authReducer = (state = initialState, action) => {
         error: null,
       };
     case actionType.USER_LOGIN_SUCCESS:
-      console.log("action", action);
       return {
         ...state,
         loginData: action?.loginData,
@@ -32,37 +25,41 @@ const authReducer = (state = initialState, action) => {
     case actionType.USER_LOGIN_FAIL:
       return {
         ...state,
-        error: action?.loginErrData,
+        error: action?.loginErrorData,
         isLoading: false,
       };
-    case actionType.USER_REGISTATION:
+    case actionType.USER_LOGIN_STATUS:
+      return {
+        ...state,
+        login: action?.LoginStutas,
+      };
+    case actionType.REGISTER_REQUEST:
       return {
         ...state,
         isLoading: true,
         error: null,
       };
-    case actionType.USER_REGISTATION_SUCCESS:
+
+    case actionType.REGISTER_SUCCESS:
       return {
         ...state,
-
-        regData: action?.regData,
+        registratedData: action?.registratedData,
         isLoading: false,
         error: null,
       };
-    case actionType.USER_REGISTATION_FAIL:
+    case actionType.REGISTER_FAIL:
       return {
         ...state,
-
-        error: action?.regErrData,
+        data: action?.regErrorData,
         isLoading: false,
       };
-    case actionType.OTP_REQUEST:
+    case actionType.REGISTER_STATUS:
       return {
         ...state,
+        register: action?.regStatus,
       };
-
     default:
       return state;
   }
 };
-export default authReducer;
+export default AuthReducer;
